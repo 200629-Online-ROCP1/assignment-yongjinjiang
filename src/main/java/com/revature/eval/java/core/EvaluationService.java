@@ -22,7 +22,11 @@ public class EvaluationService {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
 			// TODO Write an implementation for this method declaration
-			return 0;
+			if (kilometersPerHour<0) {
+				return -1;
+			}else {
+			 return Math.round(kilometersPerHour*0.621371);
+		    }
 		}
 
 		/**
@@ -42,8 +46,16 @@ public class EvaluationService {
 		 */
 		public static String printConversion(double kilometersPerHour) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			if (kilometersPerHour<0) {
+				return "Invalid Value";
+				
+			} else {
+				int L=(int)Math.round(kilometersPerHour*0.621371);
+			return String.valueOf(kilometersPerHour)+" km/h = "+String.valueOf(L)+" mi/h";
 		}
+		}
+		
+		
 	}
 
 	/**

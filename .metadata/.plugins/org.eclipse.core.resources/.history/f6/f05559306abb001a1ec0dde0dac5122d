@@ -1,0 +1,24 @@
+package pet;
+
+public class Pet {
+
+	String name;
+	String color;
+	int numLegs;
+	int foodbite;
+	
+	public Pet(){
+		
+	}
+	
+    public Pet(String name, String color, int numLegs, int foodbite){
+    	this.name=name;
+    	this.color=color;
+    	this.numLegs=numLegs;
+    	this.foodbite=foodbite;
+	}
+	
+	
+}
+
+

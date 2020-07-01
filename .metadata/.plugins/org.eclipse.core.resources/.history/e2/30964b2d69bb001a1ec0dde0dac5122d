@@ -1,0 +1,10 @@
+package cat;
+
+
+class Pet{
+	
+}
+
+public class Cat extends Cat{
+
+}

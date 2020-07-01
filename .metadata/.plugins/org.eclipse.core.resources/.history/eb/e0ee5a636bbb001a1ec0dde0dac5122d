@@ -1,0 +1,14 @@
+package pet.cat;
+import pet.Pet;
+
+public class Cat extends Pet{
+	public int Food_Bowl;
+	
+   public Cat(String name, String color, int numLegs, int foodbite){
+		super(name, color,numLegs, foodbite);
+	}
+	public void call() {
+		System.out.println("The cat is saying a meow");
+	}
+	
+}

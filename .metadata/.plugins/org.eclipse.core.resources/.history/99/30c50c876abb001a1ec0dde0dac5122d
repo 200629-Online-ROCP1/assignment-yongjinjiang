@@ -1,0 +1,5 @@
+package pet.cat;
+import pet.Pet;
+public class Cat {
+
+}

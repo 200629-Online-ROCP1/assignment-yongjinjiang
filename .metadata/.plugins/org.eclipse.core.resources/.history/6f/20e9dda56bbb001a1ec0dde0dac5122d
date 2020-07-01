@@ -1,0 +1,12 @@
+package driver;
+import pet.cat.*;
+public class driver {
+	
+  Cat c=new Cat("little kitty","black",4,1);
+  c.foodBowl=0;
+
+	
+	
+}
+
+

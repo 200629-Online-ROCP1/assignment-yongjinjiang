@@ -1,0 +1,33 @@
+package pet;
+
+public class Pet {
+
+	String name;
+	String color;
+	int numLegs;
+	int foodbite;
+	
+	public Pet(){
+		
+	}
+	
+    public Pet(String name, String color, int numLegs, int foodbite){
+    	this.name=name;
+    	this.color=color;
+    	this.numLegs=numLegs;
+    	this.foodbite=foodbite;
+	}
+	
+	public void call() {
+		System.out.println("The pet is making a call");
+	}
+	
+	public void eat(int foodAmout) {
+		while (foodAmout>0) {
+			foodAmout-=foodbite;
+			call();
+		}
+	}
+}
+
+

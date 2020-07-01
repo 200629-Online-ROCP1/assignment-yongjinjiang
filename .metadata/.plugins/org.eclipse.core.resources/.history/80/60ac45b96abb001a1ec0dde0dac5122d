@@ -1,0 +1,11 @@
+package pet.cat;
+import pet.Pet;
+
+public class Cat extends Pet{
+	int Food_Bowl;
+	
+	public void call() {
+		System.out.println("The cat is saying a meow");
+	}
+	
+}
