@@ -1,7 +1,10 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random; 
 
 public class EvaluationService {
 
@@ -80,7 +83,11 @@ public class EvaluationService {
 	 */
 	public String printMegaBytesAndKiloBytes(int XX) {
 		// TODO Write an implementation for this method declaration
-		return null;
+//		return null;
+		
+		int YY=XX/1024;
+		int ZZ=XX-1024*YY;
+		return XX+" KB = "+YY+" MB"+" and "+ZZ+" KB";
 	}
 
 	/**
@@ -104,6 +111,9 @@ public class EvaluationService {
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
 		// TODO Write an implementation for this method declaration
+		if (isBarking==true && (hourOfDay>22 || hourOfDay<8) ) {
+			return true;
+		}   
 		return false;
 	}
 
@@ -120,7 +130,9 @@ public class EvaluationService {
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		firstNum=Math.round(firstNum*1000.0)/1000.0;
+		secondNum=Math.round(firstNum*1000.0)/1000.0;
+		return (firstNum==secondNum)? true: false; 
 	}
 
 	/**
@@ -137,15 +149,18 @@ public class EvaluationService {
 
 		public static boolean hasTeen(int x, int y, int z) {
 			// TODO Write an implementation for this method declaration
-			return false;
+			
+			return isTeen(x)||isTeen(y)||isTeen(z);
 		}
-
+        
+		
 		// We can initialize isTeen method first
 		// Then pass the parameter to hasTeen method
 
 		public static boolean isTeen(int number) {
 			// TODO Write an implementation for this method declaration
-			return false;
+			
+			return number>=13&&number<=19;
 		}
 	}
 
@@ -166,7 +181,11 @@ public class EvaluationService {
 	 */
 	public String printYearsAndDays(long minutes) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		 long YY=  minutes/525600;
+		 long ZZ= (minutes-YY*525600)/1440;
+
+		return (minutes>=0)? minutes+" min = "+YY+" y and "+ZZ+" d" : "Invalid Value";
 	}
 
 	/**
@@ -180,7 +199,31 @@ public class EvaluationService {
 	 */
 	public String printNumberInWord(int number) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		switch(number) {
+			case 0:
+				return "ZERO";
+			case 1:
+				return "ONE";
+			case 2:
+				return "TWO";
+			case 3:
+				return "THREE";
+			case 4:
+				return "FOUR";
+			case 5:
+				return "FIVE";
+			case 6:
+				return "SIX";
+			case 7:
+				return "SEVEN";
+			case 8:
+				return "EIGHT";
+			case 9:
+				return "NINE";
+			default:
+				return "OTHER";
+				
+		}
 	}
 
 	/**
@@ -204,7 +247,19 @@ public class EvaluationService {
 	 */
 	public int getGreatestCommonDivisor(int first, int second) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		if (first<0||second<0) {
+			return -1;
+		}else if(first>=second &&first%second==0) {
+			return second;
+		}else if(first<second && second%first==0) {
+			return first;
+		}else if(first>second) {
+			return this.getGreatestCommonDivisor(first-second, second);
+		}else {
+			return this.getGreatestCommonDivisor(first, second-first);
+		}
+		
 	}
 
 	/**
@@ -233,7 +288,13 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String s="";
+		int L=string.length();
+		for (int i=0;i<L;i++) {
+			s =s+string.charAt(L-1-i);
+		}
+		
+		return s;
 	}
 
 	/**
@@ -245,7 +306,10 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] words= phrase.split(" ");
+		String ans="";
+		for(String s:words) {ans+=String.valueOf(s.charAt(0)).toUpperCase();}
+		return ans;
 	}
 
 	/**
@@ -301,12 +365,20 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if (sideOne==sideTwo &&sideOne==sideThree) {
+				return true;
+			} else {
 			return false;
+			}
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
+			if (sideOne==sideTwo || sideOne==sideThree ||sideTwo==sideThree) {
+				return true;
+			} else {
 			return false;
+			}
 		}
 
 		public boolean isScalene() {
@@ -413,6 +485,11 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
+		List<Integer>  factors= new ArrayList<Integer>();
+		
+		
+		
+		
 		return null;
 	}
 
@@ -461,7 +538,22 @@ public class EvaluationService {
 	 * The sum of these multiples is 78.
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		return 0;
+		
+		HashSet<Integer> genSet = new HashSet<Integer>();
+		for (int j=0; j<set.length;j++) {
+			int s=set[j];
+			while (s<i && !genSet.contains(s)) {
+				genSet.add(s);
+				s+=set[j];
+			}  
+		}
+		
+		int sum=0;
+		for (int s:  genSet) {
+			sum+=s;
+		}
+		
+		return sum;
 	}
 	
 	/**
@@ -475,11 +567,17 @@ public class EvaluationService {
 	 */
 	
 	public int[] threeLuckyNumbers() {
-		return null;
+		
+		Random rd = new Random(100);
+		int[] arr= new int[3];
+		for (int i = 0; i < arr.length; i++) {
+			 arr[i] = rd.nextInt()+1;
+		}
+		return arr;
 	}
 	
 	/*
-	 * 22. Easy Guessing Game
+	 * 22. Easy  Game
 	 * 
 	 * Create a program to generate a number between the given range:
 	 * int x = minimum
@@ -489,6 +587,7 @@ public class EvaluationService {
 	 */
 	
 	public int guessingGame(int x, int y) {
-		return 0;
+		
+		return (int)(Math.ceil(Math.random()*(y-x)+x));
 	}
 }
