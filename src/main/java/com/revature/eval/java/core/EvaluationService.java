@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -404,7 +405,50 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+//		ArrayList<HashSet<String>> list= new ArrayList<HashSet<String>>();
+		ArrayList<List<String>> list= new ArrayList<List<String>>();
+		
+//		HashSet<Character> set=new  HashSet<Character>();
+		String[] arr1= {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T" };
+		List<String> set1= Arrays.asList(arr1); set1.add("1");
+		list.add(set1);
+		
+		String[] arr2= {"D","G" };
+		List<String> set2= Arrays.asList(arr2); set1.add("2");
+		list.add(set2);
+		
+		String[] arr3= {"B", "C", "M", "P" };
+		List<String> set3= Arrays.asList(arr3); set1.add("3");
+		list.add(set3);
+		
+		String[] arr4= {"F", "H", "V", "W", "Y" };
+		List<String> set4= Arrays.asList(arr4); set1.add("4");
+		list.add(set4);
+		
+		String[] arr5= {"K" };
+		List<String> set5= Arrays.asList(arr5); set1.add("5");
+		list.add(set5);
+		
+		String[] arr6= {"J", "X"};
+		List<String> set6= Arrays.asList(arr6); set1.add("8");
+		list.add(set6);
+		
+		String[] arr7= {"Q","Z"};
+		List<String> set7= Arrays.asList(arr7); set1.add("10");
+		list.add(set7);
+		
+		
+		int sum=0;
+		for(int i=0;i<string.length();i++) {
+			for (int j=0;j<list.size();j++) {
+				if(list.get(j).contains(String.valueOf(string.charAt(i)))) {
+					sum+= Integer.valueOf(list.get(j).get(list.get(j).size()-1));
+					break;
+				}
+			}
+		}
+		
+		return sum;
 	}
 
 	/**
@@ -441,7 +485,25 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		return null;
+		
+		String str,res="";
+		
+		
+		if(string.strip().startsWith("+1")) {
+			str=string.strip().substring(2);
+		}else if(string.strip().startsWith("1")) {
+			str=string.strip().substring(1);
+		}else {
+			str=string;
+		}
+		
+		for(int i=0; i<str.length();i++) {
+			if (Character.isDigit(str.charAt(i))){
+				res+=str.charAt(i);
+			};
+		}
+		
+		return res;
 	}
 
 	/**
