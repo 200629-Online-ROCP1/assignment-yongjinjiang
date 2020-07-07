@@ -2,6 +2,7 @@ package com.revature.eval.java.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -278,8 +279,19 @@ public class EvaluationService {
 	 */
 	public int sumFirstAndLastDigit(int num) {
 		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+		if(num<0){
+			return -1;
+		 }else {
+		    int first,last;
+		    last=num%10;
+		    while(num>10) {
+		    	num/=10;
+		    }
+		    first=num;
+		    
+		    return first+last;
+	     }
+       }
 
 	/**
 	 * 10. Reverse String
@@ -405,52 +417,57 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-//		ArrayList<HashSet<String>> list= new ArrayList<HashSet<String>>();
-		ArrayList<List<String>> list= new ArrayList<List<String>>();
-		
-//		HashSet<Character> set=new  HashSet<Character>();
-		String[] arr1= {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T" };
-		List<String> set1= Arrays.asList(arr1); set1.add("1");
-		list.add(set1);
-		
-		String[] arr2= {"D","G" };
-		List<String> set2= Arrays.asList(arr2); set1.add("2");
-		list.add(set2);
-		
-		String[] arr3= {"B", "C", "M", "P" };
-		List<String> set3= Arrays.asList(arr3); set1.add("3");
-		list.add(set3);
-		
-		String[] arr4= {"F", "H", "V", "W", "Y" };
-		List<String> set4= Arrays.asList(arr4); set1.add("4");
-		list.add(set4);
-		
-		String[] arr5= {"K" };
-		List<String> set5= Arrays.asList(arr5); set1.add("5");
-		list.add(set5);
-		
-		String[] arr6= {"J", "X"};
-		List<String> set6= Arrays.asList(arr6); set1.add("8");
-		list.add(set6);
-		
-		String[] arr7= {"Q","Z"};
-		List<String> set7= Arrays.asList(arr7); set1.add("10");
-		list.add(set7);
-		
-		
-		int sum=0;
-		for(int i=0;i<string.length();i++) {
-			for (int j=0;j<list.size();j++) {
-				if(list.get(j).contains(String.valueOf(string.charAt(i)))) {
-					sum+= Integer.valueOf(list.get(j).get(list.get(j).size()-1));
-					break;
-				}
-			}
-		}
-		
-		return sum;
-	}
+		List<List<String>> list= new ArrayList<>();
+        
+        String[] arr1= {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T" };
+        List<String> set1=new ArrayList<>();for(String s:arr1)set1.add(s); 
+        set1.add("1");
+        list.add(set1);
+        
+        String[] arr2= {"D","G" };
+        List<String> set2=new ArrayList<>();for(String s:arr2)set2.add(s); 
+        set2.add("2");
+        list.add(set2);
+        
+        String[] arr3= {"B", "C", "M", "P" };
+        List<String> set3=new ArrayList<>();for(String s:arr3)set3.add(s); 
+        set3.add("3");
+        list.add(set3);
+        
+        String[] arr4= {"F", "H", "V", "W", "Y" };
+        List<String> set4=new ArrayList<>();for(String s:arr4)set4.add(s); 
+        set4.add("4");
+        list.add(set4);
+        
+        String[] arr5= {"K" };
+        List<String> set5=new ArrayList<>();for(String s:arr5)set5.add(s); 
+        set5.add("5");
+        list.add(set5);
+        
+        String[] arr6= {"J", "X"};
+        List<String> set6=new ArrayList<>();for(String s:arr6)set6.add(s); 
+        set6.add("8");
+        list.add(set6);
+        
+        String[] arr7= {"Q","Z"};
+        List<String> set7=new ArrayList<>();for(String s:arr7)set7.add(s); 
+        set7.add("10");
+        list.add(set7);
+    
+        int sum=0;
+        for(int i=0;i<string.length();i++) {
+            for (int j=0;j<list.size();j++) {
 
+                if(list.get(j).stream().anyMatch(String.valueOf(string.charAt(i))::equalsIgnoreCase))
+                {
+                    sum+= Integer.valueOf(list.get(j).get(list.get(j).size()-1));
+                    break;
+                }
+            }
+        }
+        
+        return sum;
+    }
 	/**
 	 * 14. Clean the Phone Number
 	 * 
@@ -516,7 +533,21 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		Map<String, Integer>  map=new HashMap<String, Integer>(); 
+		
+		String[] strArr=string.split(" ");
+		
+		
+		for (String key: strArr) {
+			
+			int value = map.containsKey(key) ? map.get(key) : 0;
+
+			map.put(key, value+1);
+		}
+		
+		
+		return map;
 	}
 
 	/**
@@ -534,7 +565,15 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
-		return false;
+		int size=String.valueOf(input).length();
+		
+		int sum=0;
+		for (char s: String.valueOf(input).toCharArray()) {
+			int a=Integer.parseInt(String.valueOf(s));
+			sum+=Math.pow(a, size);
+		}
+		
+		return sum==input;
 	}
 
 	/**
@@ -547,13 +586,25 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		List<Integer>  factors= new ArrayList<Integer>();
+		List<Long>  factors= new ArrayList<Long>();
 		
+		while (l%2==0) {
+			factors.add(2L);
+			l/=2;
+		}
 		
+		for (Long i = 3L; i <= Math.sqrt(l); i+= 2) {
+			while(l%i==0) {
+				factors.add(i);
+				l/=i;
+			}
+			
+		}
 		
-		
-		return null;
+		if (l>2)factors.add(l);
+		return factors;
 	}
+		
 
 	/**
 	 * 18. Calculate Nth Prime
@@ -568,7 +619,22 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int k) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		long a=2L;
+		int i=1;
+		
+		EvaluationService s=new EvaluationService(); 
+		
+		
+		while(i<k) {
+			
+			a+=1;
+			if(s.calculatePrimeFactorsOf(a).size()==1) {
+				i+=1;
+			};
+			
+		}
+		
+		return (int)a;
 	}
 
 	/**
@@ -585,7 +651,14 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		Map<Character, Integer>  map=new HashMap<Character, Integer>(); 
+		
+		for(Character key: string.toCharArray()) {
+			int value=map.containsKey(key)?map.get(key):0;
+			map.put(key, value+1);
+		}
+		return map.keySet().size()>=26;
+//		return true;
 	}
 
 	/**
@@ -630,10 +703,10 @@ public class EvaluationService {
 	
 	public int[] threeLuckyNumbers() {
 		
-		Random rd = new Random(100);
+		Random rd = new Random();
 		int[] arr= new int[3];
 		for (int i = 0; i < arr.length; i++) {
-			 arr[i] = rd.nextInt()+1;
+			 arr[i] = rd.nextInt(100)+1;
 		}
 		return arr;
 	}
