@@ -86,7 +86,7 @@ public class EvaluationService {
 	public String printMegaBytesAndKiloBytes(int XX) {
 		// TODO Write an implementation for this method declaration
 //		return null;
-		
+		if (XX<0)return "Invalid Value";
 		int YY=XX/1024;
 		int ZZ=XX-1024*YY;
 		return XX+" KB = "+YY+" MB"+" and "+ZZ+" KB";
@@ -113,7 +113,7 @@ public class EvaluationService {
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
 		// TODO Write an implementation for this method declaration
-		if (isBarking==true && (hourOfDay>22 || hourOfDay<8) ) {
+		if (isBarking==true && (hourOfDay>22 || (hourOfDay<8 && hourOfDay>0) ) ) {
 			return true;
 		}   
 		return false;
@@ -132,9 +132,9 @@ public class EvaluationService {
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
 		// TODO Write an implementation for this method declaration
-		firstNum=Math.round(firstNum*1000.0)/1000.0;
-		secondNum=Math.round(firstNum*1000.0)/1000.0;
-		return (firstNum==secondNum)? true: false; 
+		 firstNum=(double)((int)(firstNum*1000.0d))/1000.0d;
+	     secondNum=(double)((int)(secondNum*1000.0d))/1000.0d;
+	     return (firstNum==secondNum)? true: false; 
 	}
 
 	/**
@@ -247,19 +247,25 @@ public class EvaluationService {
 	 * The greatest common divisor is 6 since both 12 and 30 can be divided by 6,
 	 * and there is no resulting remainder.
 	 */
+	
 	public int getGreatestCommonDivisor(int first, int second) {
 		// TODO Write an implementation for this method declaration
 		
-		if (first<0||second<0) {
+		if (first<10||second<10) {
 			return -1;
-		}else if(first>=second &&first%second==0) {
+		}
+		
+		
+		while(true) {
+			if (first>=second &&first%second==0) {
 			return second;
 		}else if(first<second && second%first==0) {
 			return first;
 		}else if(first>second) {
-			return this.getGreatestCommonDivisor(first-second, second);
-		}else {
-			return this.getGreatestCommonDivisor(first, second-first);
+			first=first%second;
+		}else{
+			second=second%first;
+		}
 		}
 		
 	}
@@ -319,7 +325,8 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		String[] words= phrase.split(" ");
+		phrase=phrase.replaceAll("\\W"," ").replaceAll("\\s+", " ");
+		String[] words= phrase.split("\\W");
 		String ans="";
 		for(String s:words) {ans+=String.valueOf(s.charAt(0)).toUpperCase();}
 		return ans;
@@ -378,7 +385,7 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
-			if (sideOne==sideTwo &&sideOne==sideThree) {
+			if (sideOne==sideTwo && sideOne==sideThree) {
 				return true;
 			} else {
 			return false;
@@ -396,6 +403,7 @@ public class EvaluationService {
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
+			if (sideOne!=sideTwo && sideOne!=sideTwo && sideTwo!= sideThree)return true;
 			return false;
 		}
 
@@ -520,6 +528,7 @@ public class EvaluationService {
 			};
 		}
 		
+		if (res.length()!=10)throw new IllegalArgumentException();
 		return res;
 	}
 
@@ -536,7 +545,7 @@ public class EvaluationService {
 		
 		Map<String, Integer>  map=new HashMap<String, Integer>(); 
 		
-		String[] strArr=string.split(" ");
+		String[] strArr=string.replaceAll("\\W", " ").replaceAll(" {2,}", " ").split(" ");
 		
 		
 		for (String key: strArr) {
@@ -619,6 +628,8 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int k) {
 		// TODO Write an implementation for this method declaration
+		
+		if (k==0) {throw new IllegalArgumentException();}
 		long a=2L;
 		int i=1;
 		
@@ -657,7 +668,13 @@ public class EvaluationService {
 			int value=map.containsKey(key)?map.get(key):0;
 			map.put(key, value+1);
 		}
-		return map.keySet().size()>=26;
+
+	    int net=map.keySet().size();
+
+	    // System.out.println(map.keySet());
+	    if(map.keySet().contains(' '))net-=1;
+
+	    return net>=26;
 //		return true;
 	}
 
@@ -677,7 +694,7 @@ public class EvaluationService {
 		HashSet<Integer> genSet = new HashSet<Integer>();
 		for (int j=0; j<set.length;j++) {
 			int s=set[j];
-			while (s<i && !genSet.contains(s)) {
+			while (s<i && (!genSet.contains(s))) {
 				genSet.add(s);
 				s+=set[j];
 			}  
