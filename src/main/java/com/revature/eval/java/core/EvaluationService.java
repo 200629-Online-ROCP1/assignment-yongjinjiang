@@ -694,10 +694,12 @@ public class EvaluationService {
 		HashSet<Integer> genSet = new HashSet<Integer>();
 		for (int j=0; j<set.length;j++) {
 			int s=set[j];
-			while (s<i && (!genSet.contains(s))) {
+			while (s<i) {	
+				if(!genSet.contains(s)) {
 				genSet.add(s);
 				s+=set[j];
 			}  
+			}
 		}
 		
 		int sum=0;
